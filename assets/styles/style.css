@@ -1,0 +1,131 @@
+/* Regole generali pagina */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Regole body */
+
+body {
+  background-color: #d9e5f3;
+}
+
+/* Regole Header */
+
+header {
+  height: 100px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0 0 13px 13px;
+  box-shadow: 2px 2px 5px #0057ff;
+}
+
+/* Regole logo header */
+
+#logo {
+  height: 20%;
+  margin: 20px 0 0 50px;
+}
+
+/* Regole immagine logo */
+
+#logo > img {
+  max-height: 10%;
+}
+
+/* Regole main */
+main {
+  padding-bottom: 160px;
+}
+
+/* Regole ellipse */
+
+.ellipse {
+  background-color: white;
+  border-radius: 50%;
+}
+
+.large {
+  width: 358px;
+  height: 358px;
+  margin-top: 100px;
+  margin-left: -170px;
+  position: relative;
+  z-index: 999;
+}
+
+.small {
+  width: 181px;
+  height: 181px;
+  margin-top: 250px;
+}
+
+.login-section {
+  margin-top: 100px;
+  position: relative;
+}
+
+/* Regole form login */
+
+.login {
+  width: 600px;
+}
+
+.question {
+  color: #134077;
+}
+
+.form {
+  background-color: white;
+  margin-top: 30px;
+  border: 1px solid #134077;
+  border-radius: 10px;
+  padding: 0 20px;
+}
+
+.form > label {
+  margin-top: 20px;
+}
+
+.form > input {
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.form > p {
+  margin-top: 20px;
+}
+
+.rocket {
+  position: absolute;
+  z-index: 999;
+  left: 80%;
+  bottom: 60px;
+}
+
+.wave {
+  position: relative;
+  height: 200px;
+}
+
+.wave svg:nth-child(1) {
+  position: absolute;
+  z-index: 999;
+  bottom: 0px;
+  left: 0;
+}
+
+.wave svg:nth-child(2) {
+  position: absolute;
+  z-index: 998;
+  bottom: 0px;
+}
+
+.wave svg:nth-child(3) {
+  position: absolute;
+  bottom: 50px;
+}
