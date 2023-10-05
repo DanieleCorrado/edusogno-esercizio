@@ -64,68 +64,39 @@ main {
 
 .login-section {
   margin-top: 100px;
-  position: relative;
-}
-
-/* Regole form login */
-
-.login {
-  width: 600px;
-}
-
-.question {
-  color: #134077;
-}
-
-.form {
-  background-color: white;
-  margin-top: 30px;
-  border: 1px solid #134077;
-  border-radius: 10px;
-  padding: 0 20px;
-}
-
-.form > label {
-  margin-top: 20px;
-}
-
-.form > input {
-  width: 100%;
-  margin-top: 20px;
-  border: none;
-  border-bottom: 1px solid black;
-}
-
-.form > p {
-  margin-top: 20px;
 }
 
 .rocket {
   position: absolute;
+  width: 10%;
   z-index: 999;
-  left: 80%;
   bottom: 60px;
+  right: 20%;
 }
 
-.wave {
+.wave-box {
   position: relative;
   height: 200px;
 }
 
-.wave svg:nth-child(1) {
+.wave-box svg:nth-child(1) {
   position: absolute;
-  z-index: 999;
+  z-index: 99;
   bottom: 0px;
   left: 0;
 }
 
-.wave svg:nth-child(2) {
+.wave-box svg:nth-child(2) {
   position: absolute;
-  z-index: 998;
+  z-index: 9;
   bottom: 0px;
 }
 
-.wave svg:nth-child(3) {
+.wave-box svg:nth-child(3) {
   position: absolute;
   bottom: 50px;
+}
+
+.wave {
+  width: 100%;
 }

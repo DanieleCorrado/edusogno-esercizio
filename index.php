@@ -1,3 +1,42 @@
+<?php
+
+$is_invalid = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+    $mysqli = require __DIR__ . "./assets/db/database.php";
+
+    // Controllo se l'email inserita è presente nel DB
+
+    $email = $_POST['email'];
+
+    
+    $sql = "SELECT * FROM utenti WHERE email = '". $email . "' ";
+    
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+    
+    if ($user) {
+        
+        if (password_verify($_POST["password"], $user["password"])) {
+            
+            session_start();
+            
+            session_regenerate_id();
+            
+            $_SESSION["user_id"] = $user["id"];
+            
+            header("Location: user-events.php");
+            exit;
+        }
+    }
+    
+    $is_invalid = true;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,12 +51,15 @@
     <!-- Styles -->
 
     <link rel="stylesheet" href="assets\styles\style.css">
+    <link rel="stylesheet" href="assets\styles\form.css">
+
     <title>Edusogno</title>
 </head>
 
 <body>
 
 <!-- Sezione Header del sito -->
+
 <header>
     <!-- Logo -->
     <div id="logo">
@@ -37,6 +79,8 @@
     </div>
 </header>
 
+<!-- Sezione main -->
+
 <main>
     <div class="container-fluid">
 
@@ -48,21 +92,22 @@
 
             <!-- Form di login -->
 
-            <div class="login ">
+            <div class="form">
                 <h2 class="question text-center">Hai gia un account?</h2>
 
-                <form action="" class="form">
-                    <label for="mail">Inserisci l'-email</label>
-                    <br>
-                    <input type="email" name="mail" id="username" placeholder="name@example.com" required>
-                    <br>
-                    <label for="password">Inserisci la password:</label>
-                    <br>
-                    <input type="password" name="password" id="password" placeholder="Scrivila qui" required>
-                    <br>
-                    <input class="btn btn-primary" type="submit" value="ACCEDI">
+                <?php if ($is_invalid): ?>
+                    <em>Invalid login</em>
+                <?php endif; ?>
 
-                    <p class="text-center">Non hai ancora un profilo? <a href="#">Registrati</a></p>
+                <form method="post" id="signin" class="form-field">
+
+                    <label for="email">Inserisci l'email:</label>
+                    <input type="email" name="email" id="email" placeholder="name@example.com" value="<?= htmlspecialchars($_POST['email'] ?? "") ?>" required/>
+
+                    <label for="password">Inserisci la password:</label>
+                    <input type="password" name="password" id="password" placeholder="Scrivila qui" required/>
+
+                    <input class="btn btn-primary" type="submit" value="ACCEDI" />
                 </form>
             </div>
 
@@ -77,31 +122,33 @@
 </main>
 
 
-    <footer>
+<!-- Sezione footer -->
 
-        <div class="wave">
+<footer>
+
+    <div class="wave-box">
            
-            <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="128" viewBox="0 0 1440 128" fill="none">
-                <path d="M550.04 20.7802C309.334 -30.4323 58.3859 24.9498 -37 59.0424V152L1505.7 142.434C1506.68 130.171 1508.06 94.1161 1505.7 48.0053C1428.64 75.2303 850.923 84.7959 550.04 20.7802Z" fill="white"/>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="433" viewBox="0 0 1440 433" fill="none">
-                <path d="M488.772 199.429C281.838 125.104 291.158 -34.8781 -52.8359 7.2956L-120.693 422.193L1422.4 630.732C1432.33 576.156 1460.02 415.457 1491.34 209.267C1394.73 318.23 695.707 273.754 488.772 199.429Z" fill="#CBDAEC"/>
-            </svg>
-            <svg id="test" xmlns="http://www.w3.org/2000/svg" width="1440" height="226" viewBox="0 0 1440 226" fill="none">
-                <path d="M1333.21 30.8969C1794.82 -45.248 2276.07 37.0965 2459 87.7868V226L-499.505 211.778C-501.388 193.544 -504.023 139.936 -499.505 71.3763C-351.721 111.856 756.189 126.078 1333.21 30.8969Z" fill="#B8CCE4"/>
-            </svg>
-            
-            <svg class="rocket" xmlns="http://www.w3.org/2000/svg" width="111" height="185" viewBox="0 0 111 185" fill="none">
-                <path d="M55.5 0L87.1099 63H23.8901L55.5 0Z" fill="white"/>
-                <rect x="24" y="63" width="63" height="96" fill="white"/>
-                <path d="M0 145.867L20 127V159.145L0 185V145.867Z" fill="white"/>
-                <path d="M111 145.867L91 127V159.145L111 185V145.867Z" fill="white"/>
-                <rect x="53" y="128" width="5" height="56" fill="white"/>
-                <circle cx="55.5" cy="102.5" r="14.5" fill="#D9E5F3"/>
-            </svg>
-        </div>
-    </footer>
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" height="128" viewBox="0 0 1440 128" fill="none">
+            <path d="M550.04 20.7802C309.334 -30.4323 58.3859 24.9498 -37 59.0424V152L1505.7 142.434C1506.68 130.171 1508.06 94.1161 1505.7 48.0053C1428.64 75.2303 850.923 84.7959 550.04 20.7802Z" fill="white"/>
+        </svg>
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" height="433" viewBox="0 0 1440 433" fill="none">
+            <path d="M488.772 199.429C281.838 125.104 291.158 -34.8781 -52.8359 7.2956L-120.693 422.193L1422.4 630.732C1432.33 576.156 1460.02 415.457 1491.34 209.267C1394.73 318.23 695.707 273.754 488.772 199.429Z" fill="#CBDAEC"/>
+        </svg>
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" height="226" viewBox="0 0 1440 226" fill="none">
+            <path d="M1333.21 30.8969C1794.82 -45.248 2276.07 37.0965 2459 87.7868V226L-499.505 211.778C-501.388 193.544 -504.023 139.936 -499.505 71.3763C-351.721 111.856 756.189 126.078 1333.21 30.8969Z" fill="#B8CCE4"/>
+        </svg>
+                
+        <svg class="rocket" xmlns="http://www.w3.org/2000/svg"height="185" viewBox="0 0 111 185" fill="none">
+            <path d="M55.5 0L87.1099 63H23.8901L55.5 0Z" fill="white"/>
+            <rect x="24" y="63" width="63" height="96" fill="white"/>
+            <path d="M0 145.867L20 127V159.145L0 185V145.867Z" fill="white"/>
+            <path d="M111 145.867L91 127V159.145L111 185V145.867Z" fill="white"/>
+            <rect x="53" y="128" width="5" height="56" fill="white"/>
+            <circle cx="55.5" cy="102.5" r="14.5" fill="#D9E5F3"/>
+        </svg>
+    </div>
 
+</footer>
 
 </body>
 

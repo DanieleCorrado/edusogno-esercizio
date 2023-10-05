@@ -1,0 +1,29 @@
+/* Regole form login */
+
+.form {
+  width: 600px;
+}
+
+.question {
+  color: #134077;
+}
+
+.form-field {
+  background-color: white;
+  margin-top: 30px;
+  border: 1px solid #134077;
+  border-radius: 10px;
+  padding: 20px;
+  z-index: 999;
+}
+
+.form-field > label {
+  margin-top: 20px;
+}
+
+.form-field > input {
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid black;
+}
