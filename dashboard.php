@@ -6,24 +6,25 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
     // Acquisisco nome e email dell'utente loggato
   
     $sql_user = "SELECT nome, cognome, email, is_admin FROM utenti WHERE id = {$_SESSION["user_id"]}";
+
     
     $result = $mysqli->query($sql_user);
 
     $user = $result->fetch_assoc();
 
-    $email = $user["email"];
+    if(!$user['is_admin']) {
+     header("Location:user-events.php");
+    }
 
-    // Acquisisco gli eventi dell'utente
+    $sql_users = "SELECT id, email FROM utenti";
 
-    $sql_events = "SELECT * FROM eventi WHERE attendees LIKE '%" . $email . "%'";
+    $result_users = $mysqli->query($sql_users);
 
-    $result_events = $mysqli->query($sql_events);
+    $users = [];
 
-    $events = [];
+    while ($result = $result_users->fetch_assoc()) {
 
-    while ($result = $result_events->fetch_assoc()) {
-
-      $events[] = $result;
+      $users[] = $result;
     }
 
 ?>
@@ -45,10 +46,10 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
     />
 
     <!-- Styles -->
-
-    <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\style.css" />
+    <link rel="stylesheet" href="assets\styles\dashboard.css">
     <link rel="stylesheet" href="assets\styles\events.css">
+
 
     <!-- JS script -->
     <script
@@ -120,9 +121,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
         </svg>
       </div>
       <div class="menu">
-        <?php if($user['is_admin']): ?>
         <a href="dashboard.php">Admin dashboard</a>
-        <?php endif; ?>
         <a href="logout.php">Log out</a>
       </div>
     </header>
@@ -139,20 +138,70 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           <!-- Eventi utente -->
 
           <div class="center">
-            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?> ecco i tuoi eventi</h2>
-            <div class="events d-flex">
+           <div class="description">
+            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?></h2>
+            <span>Da questa pagina puoi vedere gli eventi di tutti gli utenti del sito, </span>
+            <br>
+            <span>inoltre puoi creare nuovi eventi e modificare o eliminare quelli esistenti. </span>
 
-              <?php foreach ($events as $value) { ?>
+           </div>
+           <form method="post" onchange="event.preventDefault()">
+            <label for="user">Seleziona un utente</label>
+             <select name="users">
+               <option value="-1">Seleziona email</option>
+              <?php foreach ($users as $user) { ?>
+
+               <option value="<?php echo $user['id'];?>"><?php echo "{$user['email']}";?></option>
+              
+              <?php } ?>
+             </select>
+             <br>
+              <input class="btn btn-primary button search-button" type="submit" style="width:400px" value="CERCA" />
+             
+            </form>
+            <div class="events d-flex">
+              
+            <?php 
+             if(isset($_POST['users'])) {
+
+               $sql_selected_user = "SELECT nome, cognome, email FROM utenti WHERE id = {$_POST['users']}";
+
+    
+              $result = $mysqli->query($sql_selected_user);
+
+              $user = $result->fetch_assoc();
+
+              // Acquisisco gli eventi dell'utente
+
+               $sql_events = "SELECT * FROM eventi WHERE attendees LIKE '%" . $user['email'] . "%'";
+
+               $result_events = $mysqli->query($sql_events);
+
+               $events = [];
+
+               while ($result = $result_events->fetch_assoc()) {
+
+                 $events[] = $result;
+               }
+              }
+              foreach ($events as $value) { ?>
                 <div class= "event">
                     
                     <h2><?php echo "{$value["nome_evento"]}";?></h2>
+
+                    <h5>Partecipanti:</h5>
+
+                    <?php
+                     $attendees = explode(",", $value["attendees"]);
+                     foreach ($attendees as $attendee) { ?>
+                     <p><?php echo "{$attendee}";?></p>
+
+                     <?php } ?>
                     <span class="time"><?php echo "{$value["data_evento"]}";?></span>
                     <br>
                     <input class="btn btn-primary button" type="submit" value="JOIN" />
                 </div>
               <?php } ?>
-
-              
             </div>
           </div>
 
