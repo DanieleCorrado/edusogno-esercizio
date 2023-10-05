@@ -10,6 +10,7 @@
 
 body {
   background-color: #d9e5f3;
+  max-width: 1500px;
 }
 
 /* Regole Header */
@@ -37,7 +38,8 @@ header {
 
 /* Regole main */
 main {
-  padding-bottom: 160px;
+  padding-top: 50px;
+  padding-bottom: 190px;
 }
 
 /* Regole ellipse */
@@ -60,10 +62,6 @@ main {
   width: 181px;
   height: 181px;
   margin-top: 250px;
-}
-
-.login-section {
-  margin-top: 100px;
 }
 
 .rocket {

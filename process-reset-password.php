@@ -46,7 +46,7 @@ $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 $sql = "UPDATE utenti
         SET reset_token = NULL,
-             password = ?,
+            password = ?,
             reset_token_expire_at = NULL
         WHERE id = ?";
 

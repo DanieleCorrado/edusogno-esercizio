@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <main>
     <div class="container-fluid">
 
-        <div class="d-flex flex-row justify-content-between login-section">
+        <div class="d-flex flex-row justify-content-between">
 
             <!-- Cerchio sinistro -->
 
@@ -95,12 +95,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="form">
                 <h2 class="question text-center">Hai gia un account?</h2>
 
-                <?php if ($is_invalid): ?>
-                    <em>Invalid login</em>
-                <?php endif; ?>
 
                 <form method="post" id="signin" class="form-field">
-
+                    <?php if ($is_invalid): ?>
+                    <div class="error" style="text-align:center; color:red">
+                        <span >Invalid login</span>
+                    </div>
+                    <?php endif; ?>
                     <label for="email">Inserisci l'email:</label>
                     <input type="email" name="email" id="email" placeholder="name@example.com" value="<?= htmlspecialchars($_POST['email'] ?? "") ?>" required/>
 
@@ -110,7 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <input class="btn btn-primary" type="submit" value="ACCEDI" />
                     <p class="text-center">Non hai ancora un profilo? <a href="signup.html">Registrati</a></p>
                     <p class="text-center" ><a href="forgot-password.php">Password dimenticata?</a></p>
+                    
                 </form>
+                
             </div>
 
             <!-- Cerchio destro -->

@@ -123,7 +123,7 @@ if(strtotime($user["reset_token_expire_at"]) <= time()) {
 
     <main>
       <div class="container-fluid">
-        <div class="d-flex flex-row justify-content-between login-section">
+        <div class="d-flex flex-row justify-content-between">
           <!-- Cerchio sinistro -->
 
           <div class="ellipse large"></div>

@@ -54,8 +54,25 @@ $stmt->bind_param("ssss", $_POST["name"], $_POST["surname"], $_POST["email"], $p
 
 if($stmt->execute()) {
 
+ $mysqli = require __DIR__ . "./assets/db/database.php";
+
+  $email = $_POST['email'];
+
+    
+  $sql = "SELECT * FROM utenti WHERE email = '". $email . "' ";
+    
+  $result = $mysqli->query($sql);
+
+  $user = $result->fetch_assoc();
+
+ session_start();
+            
+ session_regenerate_id();
+            
+ $_SESSION["user_id"] = $user["id"];
 
  header("Location:user-events.php");
+ exit;
 
 } else {
 

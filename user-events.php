@@ -1,10 +1,7 @@
 <?php
-
 session_start();
 
 $mysqli = require __DIR__ . "./assets/db/database.php";
-
-  // var_dump($user_id);
 
     // Acquisisco nome e email dell'utente loggato
   
