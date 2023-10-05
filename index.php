@@ -108,6 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <input type="password" name="password" id="password" placeholder="Scrivila qui" required/>
 
                     <input class="btn btn-primary" type="submit" value="ACCEDI" />
+                    <p class="text-center">Non hai ancora un profilo? <a href="signup.html">Registrati</a></p>
                 </form>
             </div>
 

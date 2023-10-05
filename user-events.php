@@ -66,7 +66,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
   <body>
     <!-- Sezione Header del sito -->
 
-    <header>
+    <header class="d-flex">
       <!-- Logo -->
       <div id="logo">
         <svg
@@ -121,6 +121,9 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
             fill="#2D224C"
           />
         </svg>
+      </div>
+      <div class="logout">
+        <a href="logout.php">Log out</a>
       </div>
     </header>
 
