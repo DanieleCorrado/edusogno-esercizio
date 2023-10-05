@@ -18,6 +18,10 @@ header {
   left: 10%;
 }
 
+.center > h2 {
+  margin-left: 100px;
+}
+
 .events {
   margin-top: 30px;
   justify-content: space-between;

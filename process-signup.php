@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // VALIDAZIONE DATI FORM
 
 // Validazione nome
@@ -54,8 +54,8 @@ $stmt->bind_param("ssss", $_POST["name"], $_POST["surname"], $_POST["email"], $p
 
 if($stmt->execute()) {
 
- header("Location:user-event.html");
- exit;
+
+ header("Location:user-events.php");
 
 } else {
 

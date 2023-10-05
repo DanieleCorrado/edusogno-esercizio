@@ -109,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <input class="btn btn-primary" type="submit" value="ACCEDI" />
                     <p class="text-center">Non hai ancora un profilo? <a href="signup.html">Registrati</a></p>
+                    <p class="text-center" ><a href="forgot-password.php">Password dimenticata?</a></p>
                 </form>
             </div>
 

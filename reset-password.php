@@ -1,33 +1,30 @@
 <?php
 
-session_start();
+$token = $_GET["token"];
+
+$token_hash = hash("sha256", $token);
 
 $mysqli = require __DIR__ . "./assets/db/database.php";
 
-  // var_dump($user_id);
+$sql = "SELECT * FROM utenti WHERE reset_token = ?";
 
-    // Acquisisco nome e email dell'utente loggato
-  
-    $sql_user = "SELECT nome, cognome, email FROM utenti WHERE id = {$_SESSION["user_id"]}";
-    
-    $result = $mysqli->query($sql_user);
+$stmt = $mysqli->prepare($sql);
 
-    $user = $result->fetch_assoc();
+$stmt->bind_param("s", $token_hash);
 
-    $email = $user["email"];
+$stmt->execute();
 
-    // Acquisisco gli eventi dell'utente
+$result = $stmt->get_result();
 
-    $sql_events = "SELECT * FROM eventi WHERE attendees LIKE '%" . $email . "%'";
+$user = $result->fetch_assoc();
 
-    $result_events = $mysqli->query($sql_events);
+if($user === null) {
+ die("token not found");
+}
 
-    $events = [];
-
-    while ($result = $result_events->fetch_assoc()) {
-
-      $events[] = $result;
-    }
+if(strtotime($user["reset_token_expire_at"]) <= time()) {
+ die("token has expired");
+}
 
 ?>
 
@@ -37,7 +34,6 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- Bootstap -->
 
     <link
@@ -51,22 +47,21 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\style.css" />
-    <link rel="stylesheet" href="assets\styles\events.css">
 
     <!-- JS script -->
     <script
       src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
       defer
     ></script>
-    <script src="js/validation.js" defer></script>
+    <script src="./assets/js/reset-password-validation.js" defer></script>
 
-    <title>My events</title>
+    <title>Edusogno</title>
   </head>
 
   <body>
     <!-- Sezione Header del sito -->
 
-    <header class="d-flex">
+    <header>
       <!-- Logo -->
       <div id="logo">
         <svg
@@ -122,38 +117,33 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           />
         </svg>
       </div>
-      <div class="logout">
-        <a href="logout.php">Log out</a>
-      </div>
     </header>
 
     <!-- Sezione main -->
 
     <main>
-      <div class="container">
-        <div class="d-flex flex-row justify-content-between">
+      <div class="container-fluid">
+        <div class="d-flex flex-row justify-content-between login-section">
           <!-- Cerchio sinistro -->
 
           <div class="ellipse large"></div>
 
-          <!-- Eventi utente -->
+          <!-- Form di signup -->
 
-          <div class="center">
-            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?> ecco i tuoi eventi</h2>
-            <div class="events d-flex">
+          <div class="form">
+            <h2 class="question text-center">Reimposta la password</h2>
 
-              <?php foreach ($events as $value) { ?>
-                <div class= "event">
-                    
-                    <h2><?php echo "{$value["nome_evento"]}";?></h2>
-                    <span class="time"><?php echo "{$value["data_evento"]}";?></span>
-                    <br>
-                    <input class="btn btn-primary button" type="submit" value="JOIN" />
-                </div>
-              <?php } ?>
+            <form method="post" action="process-reset-password.php" class="form-field" id="reset-pasword">
+              <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 
-              
-            </div>
+              <label for="password">Nuova password</label>
+              <input type="password" id="password" name="password">
+
+              <label for="password_confirmation">Ripeti la password</label>
+              <input type="password" id="password_confirmation" name="password_confirmation">
+
+              <input class="btn btn-primary" type="submit" value="REIMPOSTA PASSWORD" />
+            </form>
           </div>
 
           <!-- Cerchio destro -->

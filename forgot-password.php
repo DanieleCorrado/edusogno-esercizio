@@ -1,43 +1,9 @@
-<?php
-
-session_start();
-
-$mysqli = require __DIR__ . "./assets/db/database.php";
-
-  // var_dump($user_id);
-
-    // Acquisisco nome e email dell'utente loggato
-  
-    $sql_user = "SELECT nome, cognome, email FROM utenti WHERE id = {$_SESSION["user_id"]}";
-    
-    $result = $mysqli->query($sql_user);
-
-    $user = $result->fetch_assoc();
-
-    $email = $user["email"];
-
-    // Acquisisco gli eventi dell'utente
-
-    $sql_events = "SELECT * FROM eventi WHERE attendees LIKE '%" . $email . "%'";
-
-    $result_events = $mysqli->query($sql_events);
-
-    $events = [];
-
-    while ($result = $result_events->fetch_assoc()) {
-
-      $events[] = $result;
-    }
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- Bootstap -->
 
     <link
@@ -51,22 +17,14 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\style.css" />
-    <link rel="stylesheet" href="assets\styles\events.css">
 
-    <!-- JS script -->
-    <script
-      src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
-      defer
-    ></script>
-    <script src="js/validation.js" defer></script>
-
-    <title>My events</title>
+    <title>Forgot Password</title>
   </head>
 
   <body>
     <!-- Sezione Header del sito -->
 
-    <header class="d-flex">
+    <header>
       <!-- Logo -->
       <div id="logo">
         <svg
@@ -122,38 +80,40 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           />
         </svg>
       </div>
-      <div class="logout">
-        <a href="logout.php">Log out</a>
-      </div>
     </header>
 
     <!-- Sezione main -->
 
     <main>
-      <div class="container">
-        <div class="d-flex flex-row justify-content-between">
+      <div class="container-fluid">
+        <div class="d-flex flex-row justify-content-between login-section">
           <!-- Cerchio sinistro -->
 
           <div class="ellipse large"></div>
 
-          <!-- Eventi utente -->
+          <!-- Form reset password -->
 
-          <div class="center">
-            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?> ecco i tuoi eventi</h2>
-            <div class="events d-flex">
+          <div class="form">
+            <h2 class="question text-center">Recupara password</h2>
 
-              <?php foreach ($events as $value) { ?>
-                <div class= "event">
-                    
-                    <h2><?php echo "{$value["nome_evento"]}";?></h2>
-                    <span class="time"><?php echo "{$value["data_evento"]}";?></span>
-                    <br>
-                    <input class="btn btn-primary button" type="submit" value="JOIN" />
-                </div>
-              <?php } ?>
+            <form
+              action="send-password-reset.php"
+              method="post"
+              class="form-field"
+            >
+              <div>
+                <label for="email">Inserisci l'email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
 
-              
-            </div>
+              <input class="btn btn-primary" type="submit" value="INVIA" />
+            </form>
           </div>
 
           <!-- Cerchio destro -->
