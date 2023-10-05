@@ -23,7 +23,7 @@
       src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
       defer
     ></script>
-    <script src="js/validation.js" defer></script>
+    <script src="./assets/js/validation.js" defer></script>
 
     <title>Edusogno</title>
   </head>
@@ -101,46 +101,58 @@
           <!-- Form di signup -->
 
           <div class="form">
-            <h2 class="question text-center">Hai gia un account?</h2>
+            <h2 class="question text-center">Crea il tuo account</h2>
 
             <form
               action="process-signup.php"
               method="post"
               id="signup"
               class="form-field"
+              novalidate
             >
-              <label for="name">Inserisci il nome:</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Mario"
-                required
-              />
-              <label for="surname">Inserisci il cognome:</label>
-              <input
-                type="text"
-                name="surname"
-                id="surname"
-                placeholder="Rossi"
-                required
-              />
-              <label for="email">Inserisci l'email:</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="name@example.com"
-                required
-              />
-              <label for="password">Inserisci la password:</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Scrivila qui"
-                required
-              />
+              <div>
+                <label for="name">Inserisci il nome:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Mario"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="name">Inserisci il cognome:</label>
+                <input
+                  type="text"
+                  name="surname"
+                  id="surname"
+                  placeholder="Rossi"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="email">Inserisci l'email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="password">Inserisci la password:</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Scrivila qui"
+                  required
+                />
+              </div>
 
               <input class="btn btn-primary" type="submit" value="REGISTRATI" />
             </form>

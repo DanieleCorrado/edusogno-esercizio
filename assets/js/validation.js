@@ -1,12 +1,12 @@
-const validation = new justValidate('#signup')
+const validation = new JustValidate('#signup')
 
 validation
-  .addField('name', [
+  .addField('#name', [
     {
       rule: 'required',
     },
   ])
-  .addField('surname', [
+  .addField('#surname', [
     {
       rule: 'required',
     },

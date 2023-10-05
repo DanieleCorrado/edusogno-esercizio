@@ -17,11 +17,11 @@
   z-index: 999;
 }
 
-.form-field > label {
+.form-field label {
   margin-top: 20px;
 }
 
-.form-field > input {
+.form-field input {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 10px;

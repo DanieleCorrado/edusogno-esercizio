@@ -6,20 +6,12 @@
 
 if( empty($_POST["name"])) {
  die("Name is required");
-} else if (strlen($_POST["name"]) < 3) {
- die("Name must be at least 3 characters");
-} else if (preg_match("/[0-9]/i", $_POST["name"])) {
- die("Name cannot contain numbers");
 }
 
 // Validazione cognome
 
 if( empty($_POST["surname"])) {
  die("Surname is required");
-} else if (strlen($_POST["surname"]) < 3) {
- die("Surname must be at least 3 characters");
-} else if (preg_match("/[0-9]/i", $_POST["surname"])) {
- die("Surname cannot contain numbers");
 }
 
 // Validazione email
