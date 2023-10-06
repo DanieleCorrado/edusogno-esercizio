@@ -67,7 +67,7 @@ class EventController
 
             &Egrave; stato aggiunto un nuovo evento in cui sei richiesto.
             <br>
-            l'evento <strong>$event->title</strong> si svolgera il <strong>$event->date</strong>.
+            l'evento <strong>$event->title</strong> si svolger&agrave; il <strong>$event->date</strong>.
             <br>
             Accedi al <a href="http://localhost">sito</a> 
             per maggiori informazioni.
@@ -87,9 +87,9 @@ class EventController
             }
          }
 
-        // Reindirizzo l'utente alla pagina user-events.php
+        // Reindirizzo l'utente alla pagina dashboard.php
 
-         header("Location:user-events.php");
+         header("Location:dashboard.php");
          exit;
 
         }
