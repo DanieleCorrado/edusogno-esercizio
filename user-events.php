@@ -152,7 +152,9 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
                 <div class= "event">
                     
                     <h2><?php echo "{$value["nome_evento"]}";?></h2>
-                    <span class="time"><?php echo "{$value["data_evento"]}";?></span>
+                    <h5>Data e ora:</h5>
+
+                    <span><?php echo "{$value["data_evento"]}";?></span>
                     <br>
                     <input class="btn btn-primary button" type="submit" value="JOIN" />
                 </div>

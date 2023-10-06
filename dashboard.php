@@ -196,7 +196,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
               // Mostra tutti gli eventi dell'utente selezionato
 
               foreach ($events as $value) { ?>
-                <div class= "event">
+                <div class= "event d-flex flex-column justify-content-between">
                     
                     <h2><?php echo "{$value["nome_evento"]}";?></h2>
 
@@ -208,7 +208,9 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
                      <p><?php echo "{$attendee}";?></p>
 
                      <?php } ?>
-                    <span class="time"><?php echo "{$value["data_evento"]}";?></span>
+                    <h5>Data e ora:</h5>
+
+                    <span><?php echo "{$value["data_evento"]}";?></span>
                     <br>
                     <div class="d-flex justify-content-between mt-3">
 
