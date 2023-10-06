@@ -16,7 +16,13 @@ class EventController
 
     public function add(Event $event)
     {
+
+        // Richiede il file di database
+
         $mysqli = require __DIR__ . "./assets/db/database.php";
+
+        // Aggiunge l'evento all'array degli eventi
+
         $this->events[] = $event;
 
         // Preparo la query di inserimento dell'evento nel database
@@ -33,8 +39,6 @@ class EventController
         if(!$stmt->prepare($sql)) {
             die("SQL error: " . $mysqli->error);
         }
-        
-        print_r($stmt);
 
         // $stmt->bind_param("ssss", $event->attendees, $event->title, $event->date);
 
@@ -94,9 +98,13 @@ class EventController
     public function edit(Event $event, $id)
     {
 
-        $this->events[] = $event;
+        // Aggiunge l'evento all'array degli eventi
 
         $mysqli = require __DIR__ . "./assets/db/database.php";
+
+        // Aggiunge l'evento all'array degli eventi
+
+        $this->events[] = $event;
 
         // Preparo la query di modifica dell'evento nel database
 
@@ -170,10 +178,14 @@ class EventController
 
     public function delete(Event $event, $id)
     {
+        // Aggiunge l'evento all'array degli eventi
+
+        $mysqli = require __DIR__ . "./assets/db/database.php";
+
+        // Aggiunge l'evento all'array degli eventi
 
         $this->events[] = $event;
 
-        $mysqli = require __DIR__ . "./assets/db/database.php";
 
         // Creo la query SQL per eliminare l'evento
 
