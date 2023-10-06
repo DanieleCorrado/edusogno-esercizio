@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <!-- Form di login -->
 
             <div class="form">
-                <h2 class="question text-center">Hai gia un account?</h2>
+                <h2 class="title text-center">Hai gia un account?</h2>
 
 
                 <form method="post" id="signin" class="form-field">

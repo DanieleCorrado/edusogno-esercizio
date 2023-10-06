@@ -144,7 +144,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
           <div class="center">
            <div class="description">
-            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?></h2>
+            <h2 class="title text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?></h2>
             <span>Da questa pagina puoi vedere gli eventi di tutti gli utenti, </span>
             <br>
             <span>inoltre puoi <a href="create-event.php">creare nuovi eventi</a> e modificare o eliminare quelli esistenti. </span>

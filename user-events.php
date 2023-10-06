@@ -51,7 +51,6 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     <!-- Styles -->
 
-    <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\style.css" />
     <link rel="stylesheet" href="assets\styles\events.css">
 
@@ -146,7 +145,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           <!-- Eventi utente -->
 
           <div class="center">
-            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?> ecco i tuoi eventi</h2>
+            <h2 class="title text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?> ecco i tuoi eventi</h2>
             <div class="events d-flex">
 
               <?php foreach ($events as $value) { ?>

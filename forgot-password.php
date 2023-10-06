@@ -94,7 +94,7 @@
           <!-- Form reset password -->
 
           <div class="form">
-            <h2 class="question text-center">Recupara password</h2>
+            <h2 class="title text-center">Recupara password</h2>
 
             <form
               action="send-password-reset.php"

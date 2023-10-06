@@ -135,7 +135,7 @@ $sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
           <!-- Form di modifica evento -->
 
           <div class="form">
-            <h2 class="question text-center">Modifica evento</h2>
+            <h2 class="title text-center">Modifica evento</h2>
 
             <form
               action="update-event.php"

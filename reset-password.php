@@ -131,7 +131,7 @@ if(strtotime($user["reset_token_expire_at"]) <= time()) {
           <!-- Form di signup -->
 
           <div class="form">
-            <h2 class="question text-center">Reimposta la password</h2>
+            <h2 class="title text-center">Reimposta la password</h2>
 
             <form method="post" action="process-reset-password.php" class="form-field" id="reset-pasword">
               <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">

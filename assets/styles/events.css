@@ -1,6 +1,3 @@
-header {
-  justify-content: space-between;
-}
 .container {
   position: relative;
 }
@@ -17,10 +14,14 @@ header {
   margin-left: 100px;
 }
 
+/* Regole container events */
+
 .events {
   margin-top: 30px;
   justify-content: space-between;
 }
+
+/* Regole evento */
 
 .event {
   background-color: white;

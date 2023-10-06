@@ -4,10 +4,7 @@
   width: 600px;
 }
 
-.question {
-  color: #134077;
-}
-
+/* Regole campi form */
 .form-field {
   background-color: white;
   margin-top: 30px;
@@ -31,5 +28,4 @@
 
 .error {
   text-align: center;
-  /* background-color: violet; */
 }

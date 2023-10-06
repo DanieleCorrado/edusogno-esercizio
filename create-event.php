@@ -126,7 +126,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
           <div class="center">
            <div class="form">
-            <h2 class="question text-center">Aggiungi evento</h2>
+            <h2 class="title text-center">Aggiungi evento</h2>
 
             <form
               action="store-event.php"

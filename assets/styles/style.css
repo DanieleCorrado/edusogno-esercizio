@@ -16,6 +16,7 @@ body {
 /* Regole Header */
 
 header {
+  justify-content: space-between;
   height: 100px;
   background-color: white;
   border: 1px solid black;
@@ -36,15 +37,24 @@ header {
   max-height: 10%;
 }
 
+/* Regole menu logout e dashboard */
+
 .menu {
   margin-top: 30px;
   margin-right: 50px;
 }
 
 /* Regole main */
+
 main {
   padding-top: 50px;
   padding-bottom: 190px;
+}
+
+/* Regole titolo pagina */
+
+.title {
+  color: #134077;
 }
 
 /* Regole ellipse */
@@ -68,6 +78,8 @@ main {
   height: 181px;
   margin-top: 250px;
 }
+
+/* Regole footer */
 
 .rocket {
   position: absolute;
