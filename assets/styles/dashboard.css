@@ -6,7 +6,15 @@
   width: 200px;
 }
 
-form {
+.email-list {
   margin-top: 30px;
   text-align: center;
+}
+
+.delete-event input {
+  width: 110px;
+}
+
+.edit-event input {
+  width: 110px;
 }

@@ -54,8 +54,6 @@ $stmt->bind_param("ssss", $_POST["name"], $_POST["surname"], $_POST["email"], $p
 
 if($stmt->execute()) {
 
- $mysqli = require __DIR__ . "./assets/db/database.php";
-
   $email = $_POST['email'];
 
     

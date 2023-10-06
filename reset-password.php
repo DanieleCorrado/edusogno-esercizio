@@ -55,7 +55,7 @@ if(strtotime($user["reset_token_expire_at"]) <= time()) {
     ></script>
     <script src="./assets/js/reset-password-validation.js" defer></script>
 
-    <title>Edusogno</title>
+    <title>Edusogno - Reset password</title>
   </head>
 
   <body>

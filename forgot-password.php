@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\style.css" />
 
-    <title>Forgot Password</title>
+    <title>Edusogno - Forgot Password</title>
   </head>
 
   <body>

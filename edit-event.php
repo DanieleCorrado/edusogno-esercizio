@@ -1,30 +1,15 @@
 <?php
-session_start();
 
 $mysqli = require __DIR__ . "./assets/db/database.php";
 
-    // Acquisisco nome e email dell'utente loggato
-  
-    $sql_user = "SELECT nome, cognome, email, is_admin FROM utenti WHERE id = {$_SESSION["user_id"]}";
+$sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
+print_r($sql_event);
+
     
-    $result = $mysqli->query($sql_user);
+    $result = $mysqli->query($sql_event);
 
-    $user = $result->fetch_assoc();
-
-    $email = $user["email"];
-
-    // Acquisisco gli eventi dell'utente
-
-    $sql_events = "SELECT * FROM eventi WHERE attendees LIKE '%" . $email . "%'";
-
-    $result_events = $mysqli->query($sql_events);
-
-    $events = [];
-
-    while ($result = $result_events->fetch_assoc()) {
-
-      $events[] = $result;
-    }
+    $event = $result->fetch_assoc();
+    print_r($event);
 
 ?>
 
@@ -34,7 +19,6 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- Bootstap -->
 
     <link
@@ -48,22 +32,21 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\style.css" />
-    <link rel="stylesheet" href="assets\styles\events.css">
 
     <!-- JS script -->
     <script
       src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
       defer
     ></script>
-    <script src="js/validation.js" defer></script>
+    <script src="./assets/js/validation.js" defer></script>
 
-    <title>Edusogno - My events</title>
+    <title>Edusogno - edit event</title>
   </head>
 
   <body>
     <!-- Sezione Header del sito -->
 
-    <header class="d-flex">
+    <header>
       <!-- Logo -->
       <div id="logo">
         <svg
@@ -119,41 +102,77 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           />
         </svg>
       </div>
-      <div class="menu">
-        <?php if($user['is_admin']): ?>
-        <a href="dashboard.php">Admin dashboard</a>
-        <?php endif; ?>
-        <a href="logout.php">Log out</a>
-      </div>
     </header>
 
     <!-- Sezione main -->
 
     <main>
-      <div class="container">
+      <div class="container-fluid">
         <div class="d-flex flex-row justify-content-between">
           <!-- Cerchio sinistro -->
 
           <div class="ellipse large"></div>
 
-          <!-- Eventi utente -->
+          <!-- Form di signup -->
 
-          <div class="center">
-            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?> ecco i tuoi eventi</h2>
-            <div class="events d-flex">
+          <div class="form">
+            <h2 class="question text-center">Crea il tuo account</h2>
 
-              <?php foreach ($events as $value) { ?>
-                <div class= "event">
-                    
-                    <h2><?php echo "{$value["nome_evento"]}";?></h2>
-                    <span class="time"><?php echo "{$value["data_evento"]}";?></span>
-                    <br>
-                    <input class="btn btn-primary button" type="submit" value="JOIN" />
-                </div>
-              <?php } ?>
+            <form
+              action="update-event.php"
+              method="post"
+              id="edit"
+              class="form-field"
+            >
+              <input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>">
+              <div>
+                <label for="name">Nome evento:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value="<?php echo " {$event['nome_evento']}"?>"
+                  required
+                />
+              </div>
 
-              
-            </div>
+              <div>
+                <label for="attendees">Partecipanti:</label>
+                 <input
+                  type="text"
+                  name="attendees"
+                  value="<?php echo " {$event['attendees']}"?>""
+                  required
+                />
+                
+              </div>
+
+              <div>
+                <label for="date">Data evento:</label>
+                <?php
+                $date = explode(" ", $event["data_evento"]);?>
+                <input
+                  type="date"
+                  name="date"
+                  id="date"
+                  value="<?php echo "{$date[0]}";?>"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="time">Ora evento:</label>
+                <input
+                  type="time"
+                  name="time"
+                  id="time"
+                 value="<?php echo "{$date[1]}";?>"
+                  required
+                />
+              </div>
+
+              <input class="btn btn-primary" type="submit" value="UPDATE" />
+            </form>
           </div>
 
           <!-- Cerchio destro -->

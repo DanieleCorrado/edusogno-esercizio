@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="assets\styles\style.css">
     <link rel="stylesheet" href="assets\styles\form.css">
 
-    <title>Edusogno</title>
+    <title>Edusogno - Login</title>
 </head>
 
 <body>

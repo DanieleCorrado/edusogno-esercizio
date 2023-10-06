@@ -26,7 +26,6 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
       $users[] = $result;
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -52,13 +51,9 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
 
     <!-- JS script -->
-    <script
-      src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
-      defer
-    ></script>
-    <script src="js/validation.js" defer></script>
+    <script src="js/deleteEvent.js"></script>
 
-    <title>My events</title>
+    <title>Edusogno - Dashboard</title>
   </head>
 
   <body>
@@ -140,12 +135,12 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           <div class="center">
            <div class="description">
             <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?></h2>
-            <span>Da questa pagina puoi vedere gli eventi di tutti gli utenti del sito, </span>
+            <span>Da questa pagina puoi vedere gli eventi di tutti gli utenti, </span>
             <br>
             <span>inoltre puoi creare nuovi eventi e modificare o eliminare quelli esistenti. </span>
 
            </div>
-           <form method="post" onchange="event.preventDefault()">
+           <form method="post" onchange="event.preventDefault()" class="email-list">
             <label for="user">Seleziona un utente</label>
              <select name="users">
                <option value="-1">Seleziona email</option>
@@ -164,7 +159,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
             <?php 
              if(isset($_POST['users'])) {
 
-               $sql_selected_user = "SELECT nome, cognome, email FROM utenti WHERE id = {$_POST['users']}";
+              $sql_selected_user = "SELECT nome, cognome, email FROM utenti WHERE id = {$_POST['users']}";
 
     
               $result = $mysqli->query($sql_selected_user);
@@ -199,7 +194,20 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
                      <?php } ?>
                     <span class="time"><?php echo "{$value["data_evento"]}";?></span>
                     <br>
-                    <input class="btn btn-primary button" type="submit" value="JOIN" />
+                    <div class="d-flex justify-content-between mt-3">
+                      <div class="delete-event">
+                        <form action="delete-event.php" method="post">
+                          <input type="hidden" name="id" value="<?php echo "{$value["id"]}"; ?>">
+                          <input class="btn btn-danger" type="submit" value="DELETE" onclick="return confirm('Sei sicuro di voler eliminare questo evento?')"/>
+                        </form>
+                      </div>
+                      <div class="edit-event">
+                        <form action="edit-event.php" method="post">
+                          <input type="hidden" name="id" value="<?php echo "{$value["id"]}"; ?>">
+                          <input class="btn btn-primary" type="submit" value="EDIT"/>
+                        </form>
+                      </div>
+                    </div>
                 </div>
               <?php } ?>
             </div>
