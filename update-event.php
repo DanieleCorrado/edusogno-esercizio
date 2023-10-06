@@ -1,6 +1,5 @@
 <?php
 session_start();
-print_r($_POST);
 
 $mysqli = require __DIR__ . "./assets/db/database.php";
 
@@ -9,8 +8,6 @@ mysqli_report(MYSQLI_REPORT_OFF);
 // Modifico l'evento
 
 $date = $_POST['date']. " " . $_POST['time'];
-// print_r("---------------");
-
 
 $sql = "UPDATE eventi SET nome_evento = ?, attendees = ?, data_evento = ? WHERE id = ?";
 

@@ -1,15 +1,24 @@
 <?php
+session_start();
 
 $mysqli = require __DIR__ . "./assets/db/database.php";
 
-$sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
-print_r($sql_event);
+$sql_user = "SELECT nome, cognome, email, is_admin FROM utenti WHERE id = {$_SESSION["user_id"]}";
 
+    
+    $result = $mysqli->query($sql_user);
+
+    $user = $result->fetch_assoc();
+
+if(!$user['is_admin']) {
+     header("Location:user-events.php");
+    }
+
+$sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
     
     $result = $mysqli->query($sql_event);
 
     $event = $result->fetch_assoc();
-    print_r($event);
 
 ?>
 
@@ -116,7 +125,7 @@ print_r($sql_event);
           <!-- Form di signup -->
 
           <div class="form">
-            <h2 class="question text-center">Crea il tuo account</h2>
+            <h2 class="question text-center">Modifica evento</h2>
 
             <form
               action="update-event.php"
