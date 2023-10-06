@@ -51,7 +51,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     <!-- Styles -->
 
-    <link rel="stylesheet" href="assets\styles\style.css" />
+    <link rel="stylesheet" href="assets\styles\style.css">
     <link rel="stylesheet" href="assets\styles\events.css">
 
     <!-- JS script -->

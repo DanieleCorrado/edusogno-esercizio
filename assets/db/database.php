@@ -1,7 +1,7 @@
 <?php
 
  $host = "localhost";
- $dbname = "edusogno-task";
+ $dbname = "prova";
  $username = "root";
  $password = "root";
     
