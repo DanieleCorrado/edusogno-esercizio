@@ -1,36 +1,54 @@
 <?php
 
+
+// Variabile che indica se l'email e la password inserite sono valide
+
 $is_invalid = false;
+
+// Se il metodo della richiesta è POST
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
+    // Carica il file di connessione al database
+
     $mysqli = require __DIR__ . "./assets/db/database.php";
 
-    // Controllo se l'email inserita è presente nel DB
+    // Acquisisco l'email e la password inserite dall'utente
 
     $email = $_POST['email'];
 
-    
+    // Controllo se l'email inserita è presente nel database
+
     $sql = "SELECT * FROM utenti WHERE email = '". $email . "' ";
     
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
     
+    // Se l'utente esiste
+
     if ($user) {
+
+        // Verifico se la password inserita è corretta
         
         if (password_verify($_POST["password"], $user["password"])) {
             
+            // Avvia una sessione
+
             session_start();
             
             session_regenerate_id();
             
             $_SESSION["user_id"] = $user["id"];
             
+            // Reindirizza l'utente alla pagina degli eventi
+
             header("Location: user-events.php");
             exit;
         }
     }
+    
+    // Se l'utente non esiste o la password è errata, setto la variabile $is_invalid a true
     
     $is_invalid = true;
 }

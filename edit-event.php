@@ -1,7 +1,13 @@
 <?php
+// Avvia una sessione
+
 session_start();
 
+// Carica il file di connessione al database
+
 $mysqli = require __DIR__ . "./assets/db/database.php";
+
+// Acquisisco nome e email dell'utente loggato
 
 $sql_user = "SELECT nome, cognome, email, is_admin FROM utenti WHERE id = {$_SESSION["user_id"]}";
 
@@ -10,9 +16,13 @@ $sql_user = "SELECT nome, cognome, email, is_admin FROM utenti WHERE id = {$_SES
 
     $user = $result->fetch_assoc();
 
+// Se l'utente non è un amministratore, lo reindirizzo alla pagina degli eventi
+
 if(!$user['is_admin']) {
      header("Location:user-events.php");
     }
+
+// Acquisisco l'evento selezionato dall'utente
 
 $sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
     
@@ -122,7 +132,7 @@ $sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
 
           <div class="ellipse large"></div>
 
-          <!-- Form di signup -->
+          <!-- Form di modifica evento -->
 
           <div class="form">
             <h2 class="question text-center">Modifica evento</h2>

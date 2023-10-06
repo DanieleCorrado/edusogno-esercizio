@@ -1,5 +1,10 @@
 <?php
+
+// Avvia una sessione
+
 session_start();
+
+// Carica il file di connessione al database
 
 $mysqli = require __DIR__ . "./assets/db/database.php";
 
@@ -12,9 +17,13 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     $user = $result->fetch_assoc();
 
+    // Se l'utente non è un amministratore, lo reindirizzo alla pagina degli eventi
+
     if(!$user['is_admin']) {
      header("Location:user-events.php");
     }
+
+    // Acquisisco tutti gli utenti registrati
 
     $sql_users = "SELECT id, email FROM utenti";
 
@@ -115,6 +124,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           />
         </svg>
       </div>
+      <!-- Menu navigazione -->
       <div class="menu">
         <a href="user-events.php">My events</a>
         <a href="logout.php">Log out</a>
@@ -130,7 +140,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
           <div class="ellipse large"></div>
 
-          <!-- Eventi utente -->
+          <!-- Eventi utenti -->
 
           <div class="center">
            <div class="description">
@@ -141,6 +151,8 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
             <br>
 
            </div>
+           <!-- Permette di selezionare l'utente di cui si vogliono vedere gli eventi -->
+
            <form method="post" onchange="event.preventDefault()" class="email-list">
             <label for="user">Seleziona un utente</label>
              <select name="users">
@@ -180,6 +192,9 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
                  $events[] = $result;
                }
               }
+
+              // Mostra tutti gli eventi dell'utente selezionato
+
               foreach ($events as $value) { ?>
                 <div class= "event">
                     
@@ -196,6 +211,9 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
                     <span class="time"><?php echo "{$value["data_evento"]}";?></span>
                     <br>
                     <div class="d-flex justify-content-between mt-3">
+
+                      <!-- Modifica e eliminazione dell'evento -->
+                      
                       <div class="delete-event">
                         <form action="delete-event.php" method="post">
                           <input type="hidden" name="id" value="<?php echo "{$value["id"]}"; ?>">

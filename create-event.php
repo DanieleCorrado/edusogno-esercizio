@@ -1,6 +1,10 @@
 <?php
+
+// Avvia una sessione
+
 session_start();
 
+// Carica il file di connessione al database
 $mysqli = require __DIR__ . "./assets/db/database.php";
 
     // Acquisisco nome e email dell'utente loggato
@@ -12,19 +16,10 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     $user = $result->fetch_assoc();
 
+    // Se l'utente non è un amministratore, lo reindirizzo alla pagina degli eventi
+
     if(!$user['is_admin']) {
      header("Location:user-events.php");
-    }
-
-    $sql_users = "SELECT id, email FROM utenti";
-
-    $result_users = $mysqli->query($sql_users);
-
-    $users = [];
-
-    while ($result = $result_users->fetch_assoc()) {
-
-      $users[] = $result;
     }
 ?>
 
@@ -122,11 +117,12 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
     <main>
       <div class="container">
         <div class="d-flex flex-row justify-content-between">
+
           <!-- Cerchio sinistro -->
 
           <div class="ellipse large"></div>
 
-          <!-- Eventi utente -->
+          <!-- Form per creare nuovo evento -->
 
           <div class="center">
            <div class="form">

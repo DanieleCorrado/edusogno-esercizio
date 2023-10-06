@@ -1,19 +1,19 @@
 <?php
 
+// Importa le librerie PHPMailer
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+// Carica le librerie PHPMailer dal vendor
+
 require __DIR__ . "/vendor/autoload.php";
 
-// $mail = new PHPMailer(true);
-
-// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
-// $mail->isSMTP();
-// $mail->SMTPAuth = true;
+// Crea una nuova istanza di PHPMailer
 
 $phpmailer = new PHPMailer(true);
+
 $phpmailer->isSMTP();
 $phpmailer->SMTPAuth = true;
 $phpmailer->Host = 'smtp.gmail.com';

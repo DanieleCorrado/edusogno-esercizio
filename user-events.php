@@ -1,5 +1,10 @@
 <?php
+
+// Avvia una sessione
+
 session_start();
+
+// Carica il file di connessione al database
 
 $mysqli = require __DIR__ . "./assets/db/database.php";
 
@@ -51,6 +56,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
     <link rel="stylesheet" href="assets\styles\events.css">
 
     <!-- JS script -->
+
     <script
       src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
       defer
@@ -119,6 +125,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           />
         </svg>
       </div>
+      <!-- Menu navigazione -->
       <div class="menu">
         <?php if($user['is_admin']): ?>
         <a href="dashboard.php">Admin dashboard</a>

@@ -1,26 +1,45 @@
 <?php
 
+// Carico il file di connessione al database
+
 $mysqli = require __DIR__ . "./assets/db/database.php";
+
+// Recupero i dati dell'evento dal post
 
 $attendees = $_POST['attendees'];
 $name = $_POST['name'];
 $date = $_POST['date'] . " " . $_POST['time'];
 
-// Prepara la query di inserimento
+// Preparo la query di inserimento dell'evento nel database
 
 $sql = "INSERT INTO eventi (attendees, nome_evento, data_evento) VALUES ('$attendees', '$name', '$date')";
 
+// Creo una prepared statement
+
 $stmt = $mysqli->stmt_init();
+
+// Preparo la prepared statement con la query SQL
 
 $stmt = $mysqli->prepare($sql);
 
+// Eseguo la prepared statement
+
 if($stmt->execute()) {
+
+ // Creo un array degli invitati
 
  $attendees_array = explode(",", $attendees);
 
+ // Carico il file di configurazione del mailer
+
  $mail = require __DIR__ . "/mailer.php";
 
+ // Invio un'email a ciascun invitato
+
  foreach ($attendees_array as $attendee) {
+
+    // Imposto mittente, destinatario, oggeto e corpo dell'email
+
     $mail->setFrom("danielecorradotestmail@gmail.com");
     $mail->addAddress($attendee);
     $mail->Subject = "New Event";
@@ -37,6 +56,8 @@ if($stmt->execute()) {
 
     try {
 
+        // Invio l'email
+
         $mail->send();
 
     } catch (Exception $e) {
@@ -46,9 +67,9 @@ if($stmt->execute()) {
     }
  }
 
+// Reindirizzo l'utente alla pagina user-events.php
 
  header("Location:user-events.php");
- echo "event added successfully";
  exit;
 
 } 
