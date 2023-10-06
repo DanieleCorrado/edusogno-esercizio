@@ -37,6 +37,47 @@ $stmt->bind_param("ssss", $_POST["name"], $_POST["attendees"], $date, $_POST["id
 
 if($stmt->execute()) {
 
+ // Creo un array degli invitati
+
+ $attendees_array = explode(",", $_POST["attendees"]);
+
+ // Carico il file di configurazione del mailer
+
+ $mail = require __DIR__ . "/mailer.php";
+
+ // Invio un'email a ciascun invitato
+
+ foreach ($attendees_array as $attendee) {
+
+    // Imposto mittente, destinatario, oggeto e corpo dell'email
+
+    $mail->setFrom("danielecorradotestmail@gmail.com");
+    $mail->addAddress($attendee);
+    $mail->Subject = "New Event";
+    $mail->Body = <<<END
+
+    &Egrave; stato aggiunto un nuovo evento in cui sei richiesto.
+    <br>
+    l'evento si svolgera il $_POST[date] alle $_POST[time].
+    <br>
+    Accedi al <a href="http://localhost">sito</a> 
+    per maggiori informazioni.
+
+    END;
+
+    try {
+
+        // Invio l'email
+
+        $mail->send();
+
+    } catch (Exception $e) {
+
+        echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
+
+    }
+   }
+
  // Reindirizzo l'utente alla pagina dashboard.php
 
  header("Location:dashboard.php");
