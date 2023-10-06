@@ -42,15 +42,15 @@ mysqli_report(MYSQLI_REPORT_OFF);
 
 // Aggiungo l'istanza alla tabella utenti
 
-$sql = "INSERT INTO utenti (nome, cognome, email, password) VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO utenti (nome, cognome, email, password, is_admin) VALUES (?, ?, ?, ?, ?)";
 
 $stmt = $mysqli->stmt_init();
 
 if(!$stmt->prepare($sql)) {
  die("SQL error: " . $mysqli->error);
 }
-
-$stmt->bind_param("ssss", $_POST["name"], $_POST["surname"], $_POST["email"], $password_hash);
+$is_admin = 0;
+$stmt->bind_param("sssss", $_POST["name"], $_POST["surname"], $_POST["email"], $password_hash, $is_admin);
 
 if($stmt->execute()) {
 
