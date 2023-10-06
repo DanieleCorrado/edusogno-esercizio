@@ -46,14 +46,10 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets\styles\style.css" />
+    <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\dashboard.css">
-    <link rel="stylesheet" href="assets\styles\events.css">
 
-
-    <!-- JS script -->
-    <script src="js/deleteEvent.js"></script>
-
-    <title>Edusogno - Dashboard</title>
+    <title>Edusogno - new event</title>
   </head>
 
   <body>
@@ -116,7 +112,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
         </svg>
       </div>
       <div class="menu">
-        <a href="user-events.php">My events</a>
+        <a href="dashboard.php">Admin dashboard</a>
         <a href="logout.php">Log out</a>
       </div>
     </header>
@@ -133,85 +129,62 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
           <!-- Eventi utente -->
 
           <div class="center">
-           <div class="description">
-            <h2 class="question text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?></h2>
-            <span>Da questa pagina puoi vedere gli eventi di tutti gli utenti, </span>
-            <br>
-            <span>inoltre puoi <a href="create-event.php">creare nuovi eventi</a> e modificare o eliminare quelli esistenti. </span>
-            <br>
+           <div class="form">
+            <h2 class="question text-center">Aggiungi evento</h2>
 
-           </div>
-           <form method="post" onchange="event.preventDefault()" class="email-list">
-            <label for="user">Seleziona un utente</label>
-             <select name="users">
-               <option value="-1">Seleziona email</option>
-              <?php foreach ($users as $user) { ?>
+            <form
+              action="store-event.php"
+              method="post"
+              id="store"
+              class="form-field"
+            >
+              <div>
+                <label for="name">Inserisci nome evento:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Nome evento"
+                  required
+                />
+              </div>
 
-               <option value="<?php echo $user['id'];?>"><?php echo "{$user['email']}";?></option>
-              
-              <?php } ?>
-             </select>
-             <br>
-              <input class="btn btn-primary button search-button" type="submit" style="width:400px" value="CERCA" />
-             
+              <div>
+                <label for="attendees">Inserisci le email dei partecipanti:</label>
+                <br>
+                <textarea
+                  style="width: 100%;"
+                  type="text"
+                  name="attendees"
+                  id="attendees"
+                  placeholder="esempio1@gmail.com,esempio2@gmail.com,esempio3@gmail.com"
+                  required
+                ></textarea>
+              </div>
+
+              <div>
+                <label for="date">Inserisci la date dell'evento:</label>
+                <input
+                  type="date"
+                  name="date"
+                  id="date"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="time">Inserisci l'orario dell'evento:</label>
+                <input
+                  type="time"
+                  name="time"
+                  id="time"
+                  required
+                />
+              </div>
+
+              <input class="btn btn-primary" type="submit" value="Nuovo evento" />
             </form>
-            <div class="events d-flex">
-              
-            <?php 
-             if(isset($_POST['users'])) {
-
-              $sql_selected_user = "SELECT nome, cognome, email FROM utenti WHERE id = {$_POST['users']}";
-
-    
-              $result = $mysqli->query($sql_selected_user);
-
-              $user = $result->fetch_assoc();
-
-              // Acquisisco gli eventi dell'utente
-
-               $sql_events = "SELECT * FROM eventi WHERE attendees LIKE '%" . $user['email'] . "%'";
-
-               $result_events = $mysqli->query($sql_events);
-
-               $events = [];
-
-               while ($result = $result_events->fetch_assoc()) {
-
-                 $events[] = $result;
-               }
-              }
-              foreach ($events as $value) { ?>
-                <div class= "event">
-                    
-                    <h2><?php echo "{$value["nome_evento"]}";?></h2>
-
-                    <h5>Partecipanti:</h5>
-
-                    <?php
-                     $attendees = explode(",", $value["attendees"]);
-                     foreach ($attendees as $attendee) { ?>
-                     <p><?php echo "{$attendee}";?></p>
-
-                     <?php } ?>
-                    <span class="time"><?php echo "{$value["data_evento"]}";?></span>
-                    <br>
-                    <div class="d-flex justify-content-between mt-3">
-                      <div class="delete-event">
-                        <form action="delete-event.php" method="post">
-                          <input type="hidden" name="id" value="<?php echo "{$value["id"]}"; ?>">
-                          <input class="btn btn-danger" type="submit" value="DELETE" onclick="return confirm('Sei sicuro di voler eliminare questo evento?')"/>
-                        </form>
-                      </div>
-                      <div class="edit-event">
-                        <form action="edit-event.php" method="post">
-                          <input type="hidden" name="id" value="<?php echo "{$value["id"]}"; ?>">
-                          <input class="btn btn-primary" type="submit" value="EDIT"/>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-              <?php } ?>
-            </div>
+          </div>
           </div>
 
           <!-- Cerchio destro -->

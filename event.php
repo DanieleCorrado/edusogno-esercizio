@@ -1,9 +1,9 @@
 <?php
 
 class event {
- private $attendees;
- private $nome_evento;
- private $data_evento;
+ private string $nome_evento;
+ private string $attendees;
+ private string $data_evento;
 
  public function __construct($nome_evento, $attendees, $data_evento) {
   $this -> setName($nome_evento);
