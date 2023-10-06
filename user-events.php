@@ -146,7 +146,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
 
           <div class="center">
             <h2 class="title text-center">Ciao <?= htmlspecialchars($user["nome"]) ?>  <?= htmlspecialchars($user["cognome"]) ?> ecco i tuoi eventi</h2>
-            <div class="events d-flex">
+            <div class="events d-flex flex-wrap">
 
               <?php foreach ($events as $value) { ?>
                 <div class= "event">

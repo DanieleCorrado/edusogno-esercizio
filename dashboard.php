@@ -167,7 +167,7 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
               <input class="btn btn-primary button search-button" type="submit" style="width:400px" value="CERCA" />
              
             </form>
-            <div class="events d-flex">
+            <div class="events d-flex flex-wrap">
               
             <?php 
              if(isset($_POST['users'])) {
@@ -219,6 +219,10 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
                       <div class="delete-event">
                         <form action="delete-event.php" method="post">
                           <input type="hidden" name="id" value="<?php echo "{$value["id"]}"; ?>">
+                          <input type="hidden" name="name" value="<?php echo "{$value["nome_evento"]}"; ?>">
+                          <input type="hidden" name="attendees" value="<?php echo "{$value["attendees"]}"; ?>">
+                          <input type="hidden" name="date" value="<?php echo "{$value["data_evento"]}"; ?>">
+
                           <input class="btn btn-danger" type="submit" value="DELETE" onclick="return confirm('Sei sicuro di voler eliminare questo evento?')"/>
                         </form>
                       </div>

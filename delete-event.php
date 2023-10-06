@@ -1,5 +1,8 @@
 <?php
 
+require __DIR__ . "./event.php";
+require __DIR__ . "./eventController.php";
+
 // Verifico se l'ID dell'evento è stato fornito
 
 if (!isset($_POST['id'])) {
@@ -9,36 +12,17 @@ if (!isset($_POST['id'])) {
     exit;
 }
 
-// Carico il file di connessione al database
+print_r($_POST);
 
-$mysqli = require __DIR__ . "./assets/db/database.php";
+$attendees = $_POST['attendees'];
+$name = $_POST['name'];
+$date = $_POST['date'] . " " . $_POST['time'];
 
-// Acquisisco l'ID dell'evento
+$eventController = new EventController();
 
-$id = $_POST['id'];
+$event = new Event($name, $attendees, $date);
 
-// Creo la query SQL per eliminare l'evento
+$eventController->delete($event, $_POST['id']);
 
- $sql = "DELETE FROM eventi WHERE id = $id";
-
- // Inizializzo la prepared statement
-
- $stmt = $mysqli->stmt_init();
-
-// Preparo la query SQL
-
- if(!$stmt->prepare($sql)) {
-    // Se la query SQL non può essere preparata, stampo un errore e termino l'esecuzione dello script
-  die("SQL error: " . $mysqli->error);
- }
-
-// Eseguo la prepared statement
-
- $result = $stmt->execute();
-
-// Eseguo la prepared statement
-
- header("Location: dashboard.php");
- exit;
 
 ?>

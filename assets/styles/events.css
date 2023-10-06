@@ -18,7 +18,6 @@
 
 .events {
   margin-top: 30px;
-  justify-content: space-between;
 }
 
 /* Regole evento */
@@ -28,6 +27,7 @@
   border: 1px solid black;
   width: 300px;
   margin-right: 10px;
+  margin-bottom: 30px;
   padding: 10px;
   border: 1px solid #134077;
   border-radius: 5px;
