@@ -40,9 +40,18 @@ $mysqli = require __DIR__ . "./assets/db/database.php";
     />
 
     <!-- Styles -->
+
     <link rel="stylesheet" href="assets\styles\style.css" />
     <link rel="stylesheet" href="assets\styles\form.css" />
     <link rel="stylesheet" href="assets\styles\dashboard.css">
+   
+    <!-- JS script -->
+
+    <script
+      src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
+      defer
+    ></script>
+    <script src="./assets/js/event-validation.js" defer></script>
 
     <title>Edusogno - new event</title>
   </head>

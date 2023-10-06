@@ -53,11 +53,9 @@ $sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
     <link rel="stylesheet" href="assets\styles\style.css" />
 
     <!-- JS script -->
-    <script
-      src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"
-      defer
-    ></script>
-    <script src="./assets/js/validation.js" defer></script>
+
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
+    <script src="./assets/js/event-validation.js" defer></script>
 
     <title>Edusogno - edit event</title>
   </head>
@@ -140,7 +138,7 @@ $sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
             <form
               action="update-event.php"
               method="post"
-              id="edit"
+              id="store"
               class="form-field"
             >
               <input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>">
@@ -157,19 +155,22 @@ $sql_event = "SELECT * FROM eventi WHERE id = $_POST[id] ";
 
               <div>
                 <label for="attendees">Partecipanti:</label>
-                 <input
+                 <textarea
+                 style="width: 100%;"
                   type="text"
                   name="attendees"
-                  value="<?php echo " {$event['attendees']}"?>""
+                  id="attendees"
                   required
-                />
+                ><?php echo " {$event['attendees']}"?></textarea>
                 
               </div>
 
+              <?php
+                $date = explode(" ", $event["data_evento"]);
+              ?>
+
               <div>
                 <label for="date">Data evento:</label>
-                <?php
-                $date = explode(" ", $event["data_evento"]);?>
                 <input
                   type="date"
                   name="date"

@@ -29,9 +29,10 @@ if(!$stmt->prepare($sql)) {
  die("SQL error: " . $mysqli->error);
 }
 
+$attendees = trim($_POST["attendees"]);
 // Lego i parametri della prepared statement
 
-$stmt->bind_param("ssss", $_POST["name"], $_POST["attendees"], $date, $_POST["id"]);
+$stmt->bind_param("ssss", $_POST["name"], $attendees, $date, $_POST["id"]);
 
 // Eseguo la prepared statement
 
